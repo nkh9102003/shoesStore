@@ -77,7 +77,6 @@ function newStock() {
   resetError();
   const pid = document.getElementById("productId");
   const size = document.getElementById("size");
-  const price = document.getElementById("price");
   const quantity = document.getElementById("quantity");
   let isValid = true;
   if (pid.value == "0") {
@@ -89,9 +88,6 @@ function newStock() {
     isValid = false;
   } else if (!/^\d+$/.test(size.value) || Number(size.value) < 0) {
     setError("Size không hợp lệ", size);
-    isValid = false;
-  } else if (Number(size.value) < 35 || Number(size.value) > 45) {
-    setError("Vui lòng nhập giá bán trong khoảng 35-45", size);
     isValid = false;
   }
   if (quantity.value.trim() == "") {
