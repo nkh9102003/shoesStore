@@ -39,6 +39,36 @@ function loadAllContent(xhr) {
     document.querySelector(".allContent-section").innerHTML = xhr.responseText;
   }
 }
+
+function addToCart(id) {
+  var xhr = new XMLHttpRequest();
+  var ware_id = document.getElementById("size" + id).value;
+  xhr.open("POST", "./controller/addToCartController.php", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      document.querySelector(".allContent-section").innerHTML =
+        xhr.responseText;
+      showNot("succeeded", "Thêm thành công!");
+      loadDoc("./view/viewMyCart.php", loadAllContent);
+    }
+  };
+  xhr.send("ware_id=" + ware_id);
+}
+
+function deleteFromCart(id) {
+  loadDoc("./controller/deleteFromCartController.php", showCart, id);
+}
+
+function addQuantity(id) {
+  loadDoc("./controller/addQuantityController.php", showCart, id);
+}
+function subtractQuantity(id) {
+  loadDoc("./controller/subtractQuantityController.php", showCart, id);
+}
+function showCart() {
+  loadDoc("./view/viewMyCart.php", loadAllContent);
+}
 function showWarehouse() {
   loadDoc("./adminView/viewWarehouse.php", loadAllContent);
 }
