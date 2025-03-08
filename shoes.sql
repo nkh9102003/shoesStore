@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 28, 2025 at 03:10 PM
+-- Generation Time: Mar 08, 2025 at 06:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,81 @@ SET time_zone = "+00:00";
 --
 -- Database: `shoes`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `giohang`
+--
+
+CREATE TABLE `giohang` (
+  `IdGioHang` int(11) NOT NULL,
+  `IdNguoiDung` int(11) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `IdKhoHang` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `giohang`
+--
+
+INSERT INTO `giohang` (`IdGioHang`, `IdNguoiDung`, `SoLuong`, `IdKhoHang`) VALUES
+(30, 7, 1, 3),
+(123, 6, 1, 35),
+(128, 13, 1, 35);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `khohang`
+--
+
+CREATE TABLE `khohang` (
+  `IdKhoHang` int(11) NOT NULL,
+  `IdSP` int(11) NOT NULL,
+  `TruLuong` int(11) NOT NULL,
+  `Gia` int(11) NOT NULL,
+  `Size` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `khohang`
+--
+
+INSERT INTO `khohang` (`IdKhoHang`, `IdSP`, `TruLuong`, `Gia`, `Size`) VALUES
+(2, 26, 9, 10000000, 41),
+(3, 33, 5, 1200000, 39),
+(4, 33, 2, 1200000, 37),
+(5, 33, 3, 1200000, 40),
+(6, 30, 4, 10000000, 42),
+(7, 30, 8, 10000000, 35),
+(8, 30, 7, 10000000, 37),
+(9, 30, 21, 10000000, 39),
+(10, 34, 1, 321, 35),
+(11, 34, 2, 321, 41),
+(12, 32, 4, 10000000, 38),
+(13, 32, 4, 10000000, 36),
+(14, 34, 4, 321, 37),
+(15, 27, 1, 10000000, 41),
+(16, 27, 3, 10000000, 42),
+(17, 28, 1, 10000000, 38),
+(18, 29, 1, 10000000, 35),
+(19, 29, 3, 10000000, 38),
+(20, 29, 15, 10000000, 41),
+(23, 17, 1, 10000000, 42),
+(24, 18, 6, 10000000, 40),
+(25, 18, 3, 10000000, 39),
+(28, 33, 13, 1200000, 33),
+(29, 31, 16, 2000000, 35),
+(30, 31, 18, 2000000, 32),
+(31, 25, 30, 1230000, 34),
+(32, 25, 23, 1230000, 36),
+(33, 16, 30, 1200000, 34),
+(34, 16, 21, 1200000, 33),
+(35, 15, 33, 1300500, 33),
+(36, 15, 32, 1300500, 35),
+(37, 14, 29, 2000000, 34),
+(38, 13, 24, 2500000, 35);
 
 -- --------------------------------------------------------
 
@@ -42,8 +117,8 @@ CREATE TABLE `nguoidung` (
 --
 
 INSERT INTO `nguoidung` (`IdNguoiDung`, `TenTK`, `Email`, `MatKhau`, `QuyenQuanTri`, `SDT`, `DiaChi`) VALUES
-(6, 'customer2', 'customer2@gmail.com', 'shoes', 1, '', 'abcbcc'),
-(7, 'customer2', 'customer2@gmail.com', 'shoes', 0, '2131232311', 'abcbccd'),
+(6, 'nkh', 'hkn3002019@gmail.com', 'shoes', 1, '1232311', 'Cat Ngoi'),
+(7, 'customer2', 'customer2@gmail.com', 'shoes', 0, '213123', 'abcbcc'),
 (13, 'customer1', 'customer1@gmail.com', 'shoes', 0, '2131232311', '12331 abc'),
 (14, 'customer3', 'customer3@gmail.com', 'shoes', 0, '300239012', 'Ha tay'),
 (15, 'nxh', 'nxh@gmail.com', 'shoes', 0, '093823138', 'Vinh Phuc'),
@@ -126,6 +201,21 @@ INSERT INTO `thuonghieu` (`IdThuongHieu`, `ThuongHieu`) VALUES
 --
 
 --
+-- Indexes for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD PRIMARY KEY (`IdGioHang`),
+  ADD UNIQUE KEY `uc_uv` (`IdNguoiDung`,`IdKhoHang`),
+  ADD KEY `variation_id` (`IdKhoHang`);
+
+--
+-- Indexes for table `khohang`
+--
+ALTER TABLE `khohang`
+  ADD PRIMARY KEY (`IdKhoHang`),
+  ADD KEY `spConstraint` (`IdSP`);
+
+--
 -- Indexes for table `nguoidung`
 --
 ALTER TABLE `nguoidung`
@@ -149,6 +239,18 @@ ALTER TABLE `thuonghieu`
 --
 
 --
+-- AUTO_INCREMENT for table `giohang`
+--
+ALTER TABLE `giohang`
+  MODIFY `IdGioHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+
+--
+-- AUTO_INCREMENT for table `khohang`
+--
+ALTER TABLE `khohang`
+  MODIFY `IdKhoHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+
+--
 -- AUTO_INCREMENT for table `nguoidung`
 --
 ALTER TABLE `nguoidung`
@@ -169,6 +271,19 @@ ALTER TABLE `thuonghieu`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `giohang`
+--
+ALTER TABLE `giohang`
+  ADD CONSTRAINT `giohang_ibfk_1` FOREIGN KEY (`IdNguoiDung`) REFERENCES `nguoidung` (`IdNguoiDung`),
+  ADD CONSTRAINT `giohang_ibfk_2` FOREIGN KEY (`IdKhoHang`) REFERENCES `khohang` (`IdKhoHang`);
+
+--
+-- Constraints for table `khohang`
+--
+ALTER TABLE `khohang`
+  ADD CONSTRAINT `spConstraint` FOREIGN KEY (`IdSP`) REFERENCES `sanpham` (`IdSP`);
 
 --
 -- Constraints for table `sanpham`
