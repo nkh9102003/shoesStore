@@ -17,6 +17,24 @@ function setSIForm(wid, pid, price) {
   document.getElementById("pid").value = pid;
   document.getElementById("newPrice").value = price;
 }
+function checkStock(id) {
+  var wid = document.getElementById("size" + id).value;
+  loadDoc(
+    "./controller/takeStockController.php",
+    function (xhr) {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        document.getElementById("stock" + id).innerHTML = xhr.responseText;
+        var status = document
+          .getElementById("stock" + wid)
+          .getAttribute("data-status");
+        if (status === "soldout") {
+          document.getElementById("addToCartBtn" + id).disabled = true;
+        }
+      }
+    },
+    wid
+  );
+}
 function autoClose(event) {
   var isClickInside = document
     .getElementById("mySidebar")
