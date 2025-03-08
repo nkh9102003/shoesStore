@@ -15,7 +15,22 @@
             <a href="./product.php" class="nav-item nav-link <?php if($currentPage == "product.php")   echo "active";?>" >Sản phẩm</a>
         </div>
     </div>
-    
+    <div class="user-cart">
+        <a <?=isset($_SESSION['user_id']) ? "onclick=\"loadDoc('./view/viewMyCart.php',loadAllContent)\"" : "href='./login.php'"?>>
+            <i class="fa-regular fa-cart-shopping mr-sm-3" aria-hidden="true" style="font-size:30px; color: #fff; position:relative">
+                <span class="count">
+                    <?php
+                        if(isset($_SESSION["user_id"])){
+                            $result = mysqli_query($conn, "SELECT * FROM GioHang WHERE IdNguoiDung='".$_SESSION['user_id']."'");
+                            echo mysqli_num_rows($result);
+                        }else{
+                            echo 0;
+                        }
+                    ?>
+                </span>
+            </i>
+        </a>
+    </div>
     <?php
         if(isset($_SESSION['user_id'])){
             ?>
