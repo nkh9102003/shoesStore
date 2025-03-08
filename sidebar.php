@@ -8,6 +8,7 @@
     <a href="#customers" onclick="showCustomers()"><i class="fa-solid fa-users"></i> Tài khoản</a>
     <a href="#products" onclick="showProducts()"><i class="fa-solid fa-table"></i> Sản phẩm</a>
     <a href="#brands" onclick="showBrands()"><i class="fa-solid fa-city"></i> Thương hiệu</a>
+    <a href="#warehouse" onclick="showWarehouse()"><i class="fa-solid fa-truck"></i> Kho hàng</a>
     <a href="./logout.php" class="quitAdmin"><i class="fa-solid fa-power-off"></i> Thoát</a>
 </div>
 <div id="main" class="p-3 position-fixed">
