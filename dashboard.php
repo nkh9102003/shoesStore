@@ -156,6 +156,9 @@
             case '#brands' :
                 showBrands();
                 break;
+            case '#warehouse' :
+                showWarehouse();
+                break;
         }
     </script>
 

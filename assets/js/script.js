@@ -8,6 +8,15 @@ function closeNav() {
   // document.getElementById('main-content').style.marginLeft = "100px";
   document.removeEventListener("click", autoClose);
 }
+function setSOForm(wid, quantity) {
+  document.getElementById("oldQuantity").value = quantity;
+  document.getElementById("so_ware_id").value = wid;
+}
+function setSIForm(wid, pid, price) {
+  document.getElementById("si_ware_id").value = wid;
+  document.getElementById("pid").value = pid;
+  document.getElementById("newPrice").value = price;
+}
 function autoClose(event) {
   var isClickInside = document
     .getElementById("mySidebar")
