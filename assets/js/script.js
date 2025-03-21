@@ -8,6 +8,52 @@ function closeNav() {
   // document.getElementById('main-content').style.marginLeft = "100px";
   document.removeEventListener("click", autoClose);
 }
+function checkout() {
+  loadDoc("./view/viewCheckout.php", loadAllContent);
+}
+function validateCheckout() {
+  resetError();
+  const fullName = document.getElementById("fullName");
+  const address = document.getElementById("address");
+  const contact = document.getElementById("contact");
+  const payMethod = document.getElementById("payMethod");
+  let isValid = true;
+
+  if (fullName.value.trim() == "") {
+    setError("Vui lòng nhập họ tên", fullName);
+    isValid = false;
+  } else if (
+    /[~!@#$%^&*()_\-+={}:;.,"`<>?|[\]\\;'\/0-9]/.test(fullName.value)
+  ) {
+    setError("Họ tên chứa ký tự không hợp lệ", fullName);
+    isValid = false;
+  }
+  if (address.value.trim() == "") {
+    setError("Vui lòng nhập địa chỉ", address);
+    isValid = false;
+  } else if (/[~!@#$%^&*()_\+={}:;"`<>?|[\]\\;'\/0-9]/.test(address.value)) {
+    setError("Địa chỉ chứa ký tự không hợp lệ", address);
+    isValid = false;
+  }
+  if (contact.value.trim() == "") {
+    setError("Vui lòng nhập số điện thoại", contact);
+    isValid = false;
+  } else if (!/^[0-9]*$/.test(contact.value)) {
+    setError("Số điện thoại chứa ký tự không hợp lệ", contact);
+    isValid = false;
+  } else if (!validLength(contact.value, 10, 12)) {
+    setError("Vui lòng nhập số điện thoại trong khoảng 10-12 số", contact);
+    isValid = false;
+  }
+  if (payMethod.value == "0") {
+    setError("Vui lòng chọn phương thức thanh toán", payMethod);
+    isValid = false;
+  }
+  if (isValid == true) {
+    document.getElementById("form-checkout").submit();
+  }
+}
+
 function setSOForm(wid, quantity) {
   document.getElementById("oldQuantity").value = quantity;
   document.getElementById("so_ware_id").value = wid;
