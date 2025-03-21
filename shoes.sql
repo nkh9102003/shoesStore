@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 08, 2025 at 06:54 PM
+-- Generation Time: Mar 21, 2025 at 04:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,53 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `chitietdh`
+--
+
+CREATE TABLE `chitietdh` (
+  `IdCTDH` int(11) NOT NULL,
+  `IdDonHang` int(11) NOT NULL,
+  `IdKhoHang` int(11) NOT NULL,
+  `SoLuong` int(11) NOT NULL,
+  `Gia` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `chitietdh`
+--
+
+INSERT INTO `chitietdh` (`IdCTDH`, `IdDonHang`, `IdKhoHang`, `SoLuong`, `Gia`) VALUES
+(2, 36, 37, 1, 2000000),
+(3, 36, 38, 1, 2500000);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `donhang`
+--
+
+CREATE TABLE `donhang` (
+  `IdDonHang` int(11) NOT NULL,
+  `IdNguoiDung` int(11) NOT NULL,
+  `TenNguoiNhan` varchar(255) NOT NULL,
+  `SDT` varchar(10) NOT NULL,
+  `DiaChi` varchar(255) NOT NULL,
+  `PhuongThucTT` varchar(50) NOT NULL,
+  `TrangThaiTT` int(11) NOT NULL DEFAULT 0,
+  `TrangThaiDH` int(11) NOT NULL DEFAULT 0,
+  `NgayDat` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `donhang`
+--
+
+INSERT INTO `donhang` (`IdDonHang`, `IdNguoiDung`, `TenNguoiNhan`, `SDT`, `DiaChi`, `PhuongThucTT`, `TrangThaiTT`, `TrangThaiDH`, `NgayDat`) VALUES
+(36, 13, 'Nguyễn Khắc Hoàng', '0873211211', 'Ha Noi', 'Tiền mặt', 1, 0, '2025-03-21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `giohang`
 --
 
@@ -40,8 +87,7 @@ CREATE TABLE `giohang` (
 
 INSERT INTO `giohang` (`IdGioHang`, `IdNguoiDung`, `SoLuong`, `IdKhoHang`) VALUES
 (30, 7, 1, 3),
-(123, 6, 1, 35),
-(128, 13, 1, 35);
+(123, 6, 1, 35);
 
 -- --------------------------------------------------------
 
@@ -91,10 +137,10 @@ INSERT INTO `khohang` (`IdKhoHang`, `IdSP`, `TruLuong`, `Gia`, `Size`) VALUES
 (32, 25, 23, 1230000, 36),
 (33, 16, 30, 1200000, 34),
 (34, 16, 21, 1200000, 33),
-(35, 15, 33, 1300500, 33),
+(35, 15, 32, 1300500, 33),
 (36, 15, 32, 1300500, 35),
-(37, 14, 29, 2000000, 34),
-(38, 13, 24, 2500000, 35);
+(37, 14, 21, 2000000, 34),
+(38, 13, 22, 2500000, 35);
 
 -- --------------------------------------------------------
 
@@ -201,6 +247,21 @@ INSERT INTO `thuonghieu` (`IdThuongHieu`, `ThuongHieu`) VALUES
 --
 
 --
+-- Indexes for table `chitietdh`
+--
+ALTER TABLE `chitietdh`
+  ADD PRIMARY KEY (`IdCTDH`),
+  ADD KEY `order_id` (`IdDonHang`),
+  ADD KEY `variation_id` (`IdKhoHang`);
+
+--
+-- Indexes for table `donhang`
+--
+ALTER TABLE `donhang`
+  ADD PRIMARY KEY (`IdDonHang`),
+  ADD KEY `user_id` (`IdNguoiDung`);
+
+--
 -- Indexes for table `giohang`
 --
 ALTER TABLE `giohang`
@@ -239,10 +300,22 @@ ALTER TABLE `thuonghieu`
 --
 
 --
+-- AUTO_INCREMENT for table `chitietdh`
+--
+ALTER TABLE `chitietdh`
+  MODIFY `IdCTDH` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `donhang`
+--
+ALTER TABLE `donhang`
+  MODIFY `IdDonHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
 -- AUTO_INCREMENT for table `giohang`
 --
 ALTER TABLE `giohang`
-  MODIFY `IdGioHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
+  MODIFY `IdGioHang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
 
 --
 -- AUTO_INCREMENT for table `khohang`
@@ -271,6 +344,19 @@ ALTER TABLE `thuonghieu`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `chitietdh`
+--
+ALTER TABLE `chitietdh`
+  ADD CONSTRAINT `chitietdh_ibfk_1` FOREIGN KEY (`IdDonHang`) REFERENCES `donhang` (`IdDonHang`),
+  ADD CONSTRAINT `chitietdh_ibfk_2` FOREIGN KEY (`IdKhoHang`) REFERENCES `khohang` (`IdKhoHang`);
+
+--
+-- Constraints for table `donhang`
+--
+ALTER TABLE `donhang`
+  ADD CONSTRAINT `donhang_ibfk_1` FOREIGN KEY (`IdNguoiDung`) REFERENCES `nguoidung` (`IdNguoiDung`);
 
 --
 -- Constraints for table `giohang`
