@@ -8,7 +8,44 @@ function showEachProduct(id) {
     id
   );
 }
-
+function changeOrderStatus(id) {
+  if (confirm("Chuyển trạng thái đơn hàng?")) {
+    loadDoc("./controller/changeOrderStatusController.php", showOrders, id);
+  }
+}
+function changePayStatus(id) {
+  if (confirm("Chuyển trạng thái thanh toán?")) {
+    loadDoc("./controller/changePayStatusController.php", showOrders, id);
+  }
+}
+function showOrders() {
+  loadDoc("./adminView/viewOrders.php", loadAllContent);
+}
+function showOrderDetail(id) {
+  var button = document.getElementById("openDetailBtn" + id);
+  console.log("fuck" + button);
+  var dataUrl = button.getAttribute("data-href");
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", dataUrl, true);
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      document.getElementById("orderDetail").innerHTML = xhr.responseText;
+      var detailModal = document.getElementById("orderDetailModal");
+      detailModal.style.display = "block";
+      detailModal.classList.add("show");
+      var backdrop = document.createElement("div");
+      backdrop.classList.add("cus-modal-backdrop");
+      document.body.appendChild(backdrop);
+      var button = document.querySelector(".close");
+      button.addEventListener("click", function () {
+        detailModal.style.display = "none";
+        detailModal.classList.remove("show");
+        backdrop.classList.remove("cus-modal-backdrop");
+      });
+    }
+  };
+  xhr.send();
+}
 function loadDoc(url, cbFunction, id) {
   var xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
